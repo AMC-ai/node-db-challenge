@@ -4,9 +4,8 @@ module.exports = {
     get,
     getById,
     insert,
-    // getTaskById,
-    // getTasks,
-    // addTask
+    getTasks,
+    insertTask
 };
 
 function get() {
@@ -26,3 +25,15 @@ function insert(project) {
             return getById(id)
         });
 };
+
+
+function getTasks(id) {
+    return db("tasks")
+
+};
+
+function insertTask(id, task) {
+    return db("tasks")
+        .where({ project_id: id })
+        .insert(task);
+}

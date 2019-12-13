@@ -67,7 +67,66 @@ router.post('/', (req, res) => {
     };
 });
 
+//a task belongs to only one project.
+router.get('/:id/tasks', (req, res) => {
+    db.getTasks(req.params.id)
+        .then(task => {
+            if (task.length === 0) {
+                res
+                    .status(404)
+                    .json({ message: 'The task with the specified ID does not exist.' });
+            } else {
+                res.status(200).json(task);
+            }
+        })
+        .catch(error => {
+            console.log('error on GET /:id/task', error);
+            res
+                .status(500)
+                .json({
+                    message: 'The task information could not be retrieved.',
+                });
+        });
+});
 
+//for projects and tasks if no value is provided for the completed property, the API should provide a default value of false.
+//when adding a task the client must provide a description, the notes are optional.
+//when adding a task the client must provide the id of an existing project.
+router.post('/:id/tasks', (req, res) => {
+    const id = req.params.id;
+    const taskData = req.body;
+    const { description } = taskData
+    console.log('projects/tasks/: id', id);
+
+    db.getById(id)
+        .then(project => {
+            console.log('tasks', project)
+            console.log('tasks description', description)
+            if (!project) {
+                res
+                    .status(404)
+                    .json({ message: "The project with the specified ID does not exist." })
+            } else if (!description) {
+                res
+                    .status(400)
+                    .json({ errorMessage: "Please provide description for the task." })
+            } else {
+                console.log('post body', taskData)
+                db.insertTask(id, taskData)
+                    .then(note => {
+                        res
+                            .status(200)
+                            .json(note)
+                    })
+                    .catch(error => {
+                        console.log('error on POST /:id/posts', error);
+                        res
+                            .status(500)
+                            .json({ error: "There was an error while saving the note to the database" });
+                    });
+            }
+        });
+});
 
 
 module.exports = router;

@@ -21,5 +21,5 @@ function insert(resource) {
         .insert(resource, "*")
         .then(([id]) => {
             return getById(id);
-        })
-}
+        });
+};
