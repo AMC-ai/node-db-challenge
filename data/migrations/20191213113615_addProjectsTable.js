@@ -38,6 +38,17 @@ exports.up = function (knex) {
                     .onDelete("RESTRICT")
                     .onUpdate("CASCADE");
             })
+
+            //resources table
+            .createTable("resources", tbl => {
+                //unq id
+                tbl.increments();
+                // name is required
+                tbl.string("name", 100)
+                    .notNullable();
+                // description
+                tbl.string("description", 100);
+            })
             
 };
 
