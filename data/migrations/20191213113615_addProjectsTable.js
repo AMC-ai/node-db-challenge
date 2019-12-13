@@ -49,7 +49,29 @@ exports.up = function (knex) {
                 // description
                 tbl.string("description", 100);
             })
-            
+
+            //projects resources table has to be relational to projects combining resources from its own table to multiple projects
+            .createTable("projects_resources", tbl => {
+                tbl.increments();
+                //relational to projects
+                tbl.integer("project_id")
+                    .unsigned()
+                    .notNullable()
+                    .references("id")
+                    .inTable("projects")
+                    .onDelete("RESTRICT")
+                    .onUpdate("CASCADE");
+                //relational to resources
+                tbl.integer("resource_id")
+                    .unsigned()
+                    .notNullable()
+                    .references("id")
+                    .inTable("resources")
+                    .onDelete("RESTRICT")
+                    .onUpdate("CASCADE");
+            })
+    );
+
 };
 
 exports.down = function (knex) {
