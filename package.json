@@ -1,0 +1,23 @@
+{
+  "name": "node-db-challenge",
+  "version": "1.0.0",
+  "description": "creating projects db with the ability to have a relational db with projects, tasks, and resources",
+  "main": "index.js",
+  "repository": "https://github.com/AMC-ai/node-db-challenge.git",
+  "author": "AMC <53350942+AMC-ai@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "knex": "^0.20.4",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
