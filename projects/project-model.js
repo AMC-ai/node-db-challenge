@@ -13,7 +13,7 @@ function get() {
     return db('projects');
 };
 
-function getById() {
+function getById(id) {
     return db('projects')
         .where({ id })
         .first();
