@@ -16,6 +16,28 @@ exports.up = function (knex) {
                 tbl.boolean("completed").defaultTo(false);
             })
 
+            //tasks table
+            .createTable("tasks", tbl => {
+                //unq id
+                tbl.increments();
+
+                // description
+                tbl.string("description", 100)
+                    .notNullable();
+                //additional notes colum
+                tbl.string("notes", 800);
+                //boolean set to false
+                tbl.boolean("completed").defaultTo(false);
+                //tasks has to be relational to only projects
+                tbl
+                    .integer("project_id")
+                    .unsigned()
+                    .notNullable()
+                    .references("id")
+                    .inTable("projects")
+                    .onDelete("RESTRICT")
+                    .onUpdate("CASCADE");
+            })
             
 };
 
