@@ -41,4 +41,29 @@ router.get("/:id", (req, res) => {
         });
 });
 
+//when adding resources the client must provide a name, the description is optional.
+router.post('/', (req, res) => {
+    const resourceData = req.body;
+    console.log(resourceData);
+    const { name } = resourceData
+    if (!name) {
+        res
+            .status(400)
+            .json({ errorMessage: 'Please provide REQUIRED name for the resource.' })
+    } else {
+        db.insert(resourceData)
+            .then(resource => {
+                res
+                    .status(201)
+                    .json(resource);
+            })
+            .catch(error => {
+                console.log('error on POST resource', error);
+                res
+                    .status(500)
+                    .json({ error: 'There was an error while saving the resource to the database.' })
+            });
+    };
+});
+
 module.exports = router;
