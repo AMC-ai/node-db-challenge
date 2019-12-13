@@ -40,4 +40,34 @@ router.get("/:id", (req, res) => {
         });
 });
 
+//for projects and tasks if no value is provided for the completed property, the API should provide a default value of false.
+//a project can have multiple tasks.
+//when adding projects the client must provide a name, the description is optional.
+router.post('/', (req, res) => {
+    const projectData = req.body;
+    console.log(projectData);
+    const { name } = projectData
+    if (!name) {
+        res
+            .status(400)
+            .json({ errorMessage: 'Please provide REQUIRED name for the project.' })
+    } else {
+        db.insert(projectData)
+            .then(project => {
+                res
+                    .status(201)
+                    .json(project);
+            })
+            .catch(error => {
+                console.log('error on POST project', error);
+                res
+                    .status(500)
+                    .json({ error: 'There was an error while saving the project to the database.' })
+            });
+    };
+});
+
+
+
+
 module.exports = router;
