@@ -40,11 +40,19 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
 
+- the relational database is where it holds data using table and keys that connect to each other that can be accessed by sql (api) to work with the data
+
 - [ ] Why do tables need a `primary key`?
+
+- to ensure accurate accessibility to the data in that specific record in the table
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+- foreign key 
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
+
+- we need intermediary table to bridge the data btwn to tables like we can do with .join using fk
 
 ## Minimum Viable Product
 
